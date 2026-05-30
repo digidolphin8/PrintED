@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>PrintEd</title>
+</head>
+
+<body>
+
+    <!--------------------------------------------- HERO ------------------------------------------->
+
+    <section id="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Th3Pencil</h1>
+                <p>Кратко изречение за продукта</p>
+                <button>Поръчай сега</button>
+            </div>
+
+            <div class="hero-image">
+                <img src="images/hero.png">
+            </div>
+        </div>
+    </section>
+
+
+    <!--------------------------------------------- DETAILS ------------------------------------------->
+
+    <section id="details">
+        <h2>Описание</h2>
+        <p>Този моливник във формата на молив е създаден специално за ученици, които искат да поддържат своите учебни
+            пособия подредени и лесни за намиране. Вместо разхвърляни моливи по чантата или бюрото, всичко е събрано на
+            едно място – удобно и практично.</p>
+        <p>Дизайнът не е случаен – формата на самия молив прави продукта по-интересен и привлекателен за децата. Така
+            той не е просто кутия за съхранение, а нещо, което ги кара да използват с желание своите материали за
+            рисуване и учене.</p>
+        <p>Освен това, моливникът е изработен здраво и устойчиво, така че да издържа на ежедневната употреба в училище и
+            вкъщи. Подходящ е за моливи, химикалки, гумички и други малки принадлежности.
+        </p>
+    </section>
+
+
+    <!--------------------------------------------- CARDS ----------------------------------------------->
+
+    <section id="card-container">
+        <div class="card">
+            <img src="images/photo2.JPG" alt="Интересен дизайн">
+            <div class="card-content">
+                <h3>Подредба без усилие</h3>
+                <p>Всички моливи и аксесоари са на едно място – край на разхвърляните чанти и изгубените неща.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/photo3.JPG" alt="Интересен дизайн">
+            <div class="card-content">
+                <h3>Интересен дизайн</h3>
+                <p>Формата на молив прави продукта интересен и забавен, което насърчава децата да го използват с
+                    желание.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="images/photo2.JPG" alt="Интересен дизайн">
+            <div class="card-content">
+                <h3>Здрав и практичен</h3>
+                <p>Изработен така, че да издържа на ежедневно използване – идеален както за училище, така и за вкъщи.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!--------------------------------------------- ORDER ----------------------------------------->
+
+    <section id="order">
+        <h2>Поръчка</h2>
+        <p>Поръчай сега и подари на детето си по-организирано и приятно учене. Подходящ както за лична употреба, така и
+            като подарък.
+        </p>
+        <form action="https://formspree.io/f/xaqavgyz" method="POST">
+            <input type="hidden" name="_redirect" value="http://127.0.0.1:5500/thankyou.html">
+            <input type="text" name="customer_name" placeholder="Вашето име" required>
+            <input type="tel" name="phone" placeholder="Телефон" required>
+            <input type="email" name="email" placeholder="Имейл" required>
+
+            <div class="price-box">
+                <p>Единична цена: <strong><span id="unitPrice">15</span> €</strong></p>
+
+                <label for="quantity">Количество:</label>
+                <input id="quantity" type="number" name="quantity" value="1" min="1" required
+                    oninput="calculateTotal()">
+
+                <p class="total-price">
+                    Обща цена: <strong><span id="totalPrice">15</span> €</strong>
+                </p>
+            </div>
+
+            <input type="hidden" id="finalPriceInput" name="final_price" value="15 €">
+
+            <div class="delivery-options">
+                <label>
+                    <input type="radio" name="delivery" value="address" required onclick="showDeliveryField('address')">
+                    До адрес
+                </label>
+
+                <label>
+                    <input type="radio" name="delivery" value="office" onclick="showDeliveryField('office')">
+                    До офис
+                </label>
+            </div>
+
+            <input id="addressField" type="text" placeholder="Адрес за доставка" style="display: none;">
+
+            <input id="officeField" type="text" placeholder="Офис на куриер" style="display: none;"
+                onclick="showDeliveryField('office')">
+
+            <button type="submit">Изпрати поръчка</button>
+
+        </form>
+    </section>
+
+    <script>
+        const productPrice = 15;
+
+        function calculateTotal() {
+            const quantity = document.getElementById("quantity").value;
+            const totalPrice = productPrice * quantity;
+
+            document.getElementById("totalPrice").textContent = totalPrice;
+            document.getElementById("finalPriceInput").value = totalPrice + " €";
+        }
+
+
+        function showDeliveryField(type) {
+            const addressField = document.getElementById("addressField");
+            const officeField = document.getElementById("officeField");
+
+            if (type === "address") {
+                addressField.style.display = "block";
+                officeField.style.display = "none";
+
+                addressField.required = true;
+                officeField.required = false;
+            } else {
+                addressField.style.display = "none";
+                officeField.style.display = "block";
+
+                addressField.required = false;
+                officeField.required = true;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
